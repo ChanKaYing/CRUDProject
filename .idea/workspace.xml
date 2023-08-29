@@ -4,14 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d76166cf-0621-440d-be2f-cd1e7ce4f222" name="Changes" comment="">
+    <list default="true" id="d76166cf-0621-440d-be2f-cd1e7ce4f222" name="Changes" comment="2">
+      <change afterPath="$PROJECT_DIR$/Apple.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ball.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bear.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Car.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Fish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Grape.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jacket.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jelly.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Phone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sushi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tshirt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shoplogo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CRUDProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CRUDProject.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AdminPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HomePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Register.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Total.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Total.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +77,18 @@
       <option name="presentableId" value="Default" />
       <updated>1692853385944</updated>
     </task>
+    <task id="LOCAL-00001" summary="2">
+      <created>1693314986146</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1693314986146</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="2" />
+    <option name="LAST_COMMIT_MESSAGE" value="2" />
   </component>
 </project>

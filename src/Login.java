@@ -16,7 +16,7 @@ public class Login extends JPanel {
     private Connection connection;
 
     public Login(final JPanel cards, final CardLayout c1) {
-        this.setBackground(Color.white);
+        this.setBackground(new Color(255,255,204));
         this.labelName = new JLabel("Name: "); // Change labelID to labelName
         this.labelPassword = new JLabel("Password: ");
         this.buttonLogin = new JButton("Login");
@@ -39,8 +39,8 @@ public class Login extends JPanel {
         this.add(this.labelPassword);
         this.add(this.textFieldName); // Change textFieldID to textFieldName
         this.add(this.passwordField1);
-        textFieldName.setText("admin");
-        passwordField1.setText("0");
+        textFieldName.setText("z");
+        passwordField1.setText("z");
 
         this.buttonLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

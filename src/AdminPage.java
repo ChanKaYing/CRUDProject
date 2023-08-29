@@ -21,6 +21,7 @@ public class AdminPage extends JPanel {
 
     public AdminPage(final JPanel cards, final CardLayout c1) {
         //setTitle("CRUD App");
+        this.setBackground(new Color(255,255,204));
         this.setLayout(new GridLayout(2,2,10,10));
         this.setSize(200, 400);
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

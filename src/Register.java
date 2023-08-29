@@ -28,7 +28,7 @@ public class Register extends JPanel {
     private Connection connection;
 
     public Register(final JPanel cards, final CardLayout c1) {
-        this.setBackground(new Color(204, 204, 255));
+        this.setBackground(new Color(255,255,204));
         this.labelName = new JLabel("Name: ");
         this.labelAddress = new JLabel("Address: ");
         this.labelID = new JLabel("ID: ");
