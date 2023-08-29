@@ -2,81 +2,79 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.DecimalFormat;
 
-public class CRUDAppWithId extends JFrame {
-    private DefaultListModel<String> productModel;
-    private JList<String> productList;
-    private JTextField idField;
-    private JTextField nameField;
-    private JTextField quantityField;
-    private JTextField priceField;
-    private JButton addButton;
-    private JButton updateButton;
-    private JButton deleteButton;
-
+public class HomePage extends JPanel {
     private Connection connection;
+    private JPanel itemPanel;
+    private JButton calculateButton;
+    private JLabel totalPriceLabel;
+    private JTextArea selectedItemTextArea;
+    private double totalPrice = 0.0;
+    private JTextField searchField;
+    private JButton searchButton;
+    private JButton buyButton;
 
-    public CRUDAppWithId() {
-        setTitle("CRUD App");
-        setSize(400, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-
-        productModel = new DefaultListModel<>();
-        productList = new JList<>(productModel);
-
-        JScrollPane scrollPane = new JScrollPane(productList);
-        getContentPane().add(scrollPane, BorderLayout.CENTER);
-
-        JPanel inputPanel = new JPanel(new GridLayout(8, 2, 10, 8));
-        idField = new JTextField();
-        nameField = new JTextField();
-        quantityField = new JTextField();
-        priceField = new JTextField();
-        addButton = new JButton("Add");
-        updateButton = new JButton("Update");
-        deleteButton = new JButton("Delete");
-
-        inputPanel.add(new JLabel("ID:"));
-        inputPanel.add(idField);
-        inputPanel.add(new JLabel("Product Name:"));
-        inputPanel.add(nameField);
-        inputPanel.add(new JLabel("Product Quantity:"));
-        inputPanel.add(quantityField);
-        inputPanel.add(new JLabel("Product Price:"));
-        inputPanel.add(priceField);
-        inputPanel.add(addButton);
-        inputPanel.add(updateButton);
-        inputPanel.add(deleteButton);
-
-        getContentPane().add(inputPanel, BorderLayout.SOUTH);
-
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                addProduct();
-            }
-        });
-
-        updateButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                updateProduct();
-            }
-        });
-
-        deleteButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                deleteProduct();
-            }
-        });
-
+    public HomePage(final JPanel cards, final CardLayout c1) {
+        this.revalidate();
+        this.validate();
+        this.repaint();
+        setSize(800, 600);
+        this.setLayout(new BorderLayout(10, 10));
         initializeDatabase();
+        createSearchField();
+        createSearchButton();
+        createItemPanel();
+        createCalculateButton();
+        createTotalPriceLabel();
+        createSelectedItemTextArea();
+
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BorderLayout());
+
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        topPanel.add(searchField);
+        topPanel.add(searchButton);
+        leftPanel.add(topPanel, BorderLayout.NORTH);
+
+        JScrollPane itemScrollPane = new JScrollPane(itemPanel);
+        leftPanel.add(itemScrollPane, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        bottomPanel.add(calculateButton);
+        leftPanel.add(bottomPanel, BorderLayout.SOUTH);
+
+        this.add(leftPanel, BorderLayout.CENTER);
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BorderLayout());
+
+        JScrollPane textScrollPane = new JScrollPane(selectedItemTextArea);
+        rightPanel.add(textScrollPane, BorderLayout.CENTER);
+
+        JPanel totalPanel = new JPanel();
+        totalPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        totalPanel.add(totalPriceLabel);
+        rightPanel.add(totalPanel, BorderLayout.NORTH);
+
+        this.add(rightPanel, BorderLayout.EAST);
+        buyButton = new JButton("Total");
+        bottomPanel.add(buyButton);
+        buyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                c1.show(cards,"Total");
+            }
+        });
+
+        this.add(calculateButton, BorderLayout.SOUTH);
+
         loadProductsFromDatabase();
     }
+
 
     private void initializeDatabase() {
         try {
@@ -86,8 +84,57 @@ public class CRUDAppWithId extends JFrame {
         }
     }
 
+    private void createItemPanel() {
+        itemPanel = new JPanel();
+        itemPanel.setLayout(new GridLayout(0, 2, 8, 8));
+        this.add(itemPanel, BorderLayout.CENTER);
+    }
+
+    private void createCalculateButton() {
+        calculateButton = new JButton("Calculate Total");
+        calculateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                calculateTotalPrice();
+            }
+        });
+
+        this.add(calculateButton, BorderLayout.SOUTH);
+    }
+
+    private void createTotalPriceLabel() {
+        totalPriceLabel = new JLabel("Cart                   \n Total Price: $0.00");
+
+
+        this.add(totalPriceLabel, BorderLayout.NORTH);
+    }
+
+    private void createSelectedItemTextArea() {
+        selectedItemTextArea = new JTextArea(10, 30);
+        selectedItemTextArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(selectedItemTextArea);
+        this.add(scrollPane, BorderLayout.EAST);
+    }
+
+    private void createSearchField() {
+        searchField = new JTextField(20);
+        this.add(searchField, BorderLayout.NORTH);
+    }
+
+    private void createSearchButton() {
+        searchButton = new JButton("Search");
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String searchTerm = searchField.getText();
+                searchProducts(searchTerm);
+            }
+        });
+
+        this.add(searchButton, BorderLayout.NORTH);
+    }
+
     private void loadProductsFromDatabase() {
-        productModel.clear();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM item");
@@ -97,7 +144,18 @@ public class CRUDAppWithId extends JFrame {
                 String productName = resultSet.getString("name");
                 int productQuantity = resultSet.getInt("quantity");
                 double productPrice = resultSet.getDouble("price");
-                productModel.addElement("ID: " + id + ", Name: " + productName + " - Quantity: " + productQuantity + ", Price: RM" + productPrice);
+
+                JLabel nameLabel = new JLabel("Name: " + productName);
+                JLabel priceLabel = new JLabel("Price: $" + String.format("%.2f", productPrice));
+
+                SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, productQuantity, 1);
+                JSpinner spinner = new JSpinner(spinnerModel);
+
+                itemPanel.add(nameLabel);
+                itemPanel.add(priceLabel);
+                itemPanel.add(new JLabel("Select Quantity: "+productQuantity ));
+                itemPanel.add(spinner);
+
             }
 
             resultSet.close();
@@ -107,128 +165,69 @@ public class CRUDAppWithId extends JFrame {
         }
     }
 
-    private boolean validateInput() {
-        String idStr = idField.getText().trim();
-        String name = nameField.getText().trim();
-        String quantityStr = quantityField.getText().trim();
-        String priceStr = priceField.getText().trim();
-
-        if (idStr.isEmpty() || name.isEmpty() || quantityStr.isEmpty() || priceStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in all fields.");
-            return false;
-        }
+    private void searchProducts(String searchTerm) {
+        itemPanel.removeAll();
+        itemPanel.revalidate();
+        itemPanel.repaint();
 
         try {
-            int id = Integer.parseInt(idStr);
-            int quantity = Integer.parseInt(quantityStr);
-            double price = Double.parseDouble(priceStr);
-            if (id < 0 || quantity < 0 || price < 0) {
-                JOptionPane.showMessageDialog(this, "ID, quantity, and price must be non-negative.");
-                return false;
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM item WHERE name LIKE '%" + searchTerm + "%'";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String productName = resultSet.getString("name");
+                int productQuantity = resultSet.getInt("quantity");
+                double productPrice = resultSet.getDouble("price");
+
+                JLabel nameLabel = new JLabel("Name: " + productName);
+                JLabel priceLabel = new JLabel("Price: $" + String.format("%.2f", productPrice));
+
+                SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, productQuantity, 1);
+                JSpinner spinner = new JSpinner(spinnerModel);
+
+                itemPanel.add(nameLabel);
+                itemPanel.add(priceLabel);
+                itemPanel.add(new JLabel("Select Quantity:"));
+                itemPanel.add(spinner);
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Invalid ID, quantity, or price format.");
-            return false;
-        }
 
-        return true;
-    }
-
-    private void addProduct() {
-        if (!validateInput()) {
-            return;
-        }
-
-        int id = Integer.parseInt(idField.getText());
-        String name = nameField.getText();
-        int quantity = Integer.parseInt(quantityField.getText());
-        double price = Double.parseDouble(priceField.getText());
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO item (id, name, quantity, price) VALUES (?, ?, ?, ?)");
-            preparedStatement.setInt(1, id);
-            preparedStatement.setString(2, name);
-            preparedStatement.setInt(3, quantity);
-            preparedStatement.setDouble(4, price);
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-
-            idField.setText("");
-            nameField.setText("");
-            quantityField.setText("");
-            priceField.setText("");
-            loadProductsFromDatabase();
+            resultSet.close();
+            statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void updateProduct() {
-        int selectedIndex = productList.getSelectedIndex();
-        if (selectedIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Select a product to update.");
-            return;
+    private void calculateTotalPrice() {
+        totalPrice = 0.0;
+        selectedItemTextArea.setText(""); // Clear previous selections
+        Component[] components = itemPanel.getComponents();
+        for (int i = 0; i < components.length; i += 4) {
+            JSpinner spinner = (JSpinner) components[i + 3];
+            int selectedQuantity = (int) spinner.getValue();
+            if (selectedQuantity > 0) {
+                JLabel nameLabel = (JLabel) components[i];
+                String itemName = nameLabel.getText().replace("Name: ", "");
+
+                JLabel priceLabel = (JLabel) components[i + 1];
+                String priceString = priceLabel.getText().replace("Price: $", "");
+                double productPrice = Double.parseDouble(priceString);
+
+                double itemTotalPrice = selectedQuantity * productPrice;
+                totalPrice += itemTotalPrice;
+                selectedItemTextArea.append(
+                        "Item: " + itemName + "\n" +
+                                "Quantity: " + selectedQuantity + "\n" +
+                                "Price: $" + String.format("%.2f", productPrice) + "\n" +
+                                "Total Price: $" + String.format("%.2f", itemTotalPrice) + "\n\n"
+                );
+            }
         }
 
-        if (!validateInput()) {
-            return;
-        }
-
-        int id = Integer.parseInt(idField.getText());
-        String newName = nameField.getText();
-        int newQuantity = Integer.parseInt(quantityField.getText());
-        double newPrice = Double.parseDouble(priceField.getText());
-
-        try {
-            String selectedProduct = productList.getSelectedValue();
-            String[] parts = selectedProduct.split(", ");
-            int productId = Integer.parseInt(parts[0].split(": ")[1]);
-
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE item SET id = ?, name = ?, quantity = ?, price = ? WHERE id = ?");
-            preparedStatement.setInt(1, id);
-            preparedStatement.setString(2, newName);
-            preparedStatement.setInt(3, newQuantity);
-            preparedStatement.setDouble(4, newPrice);
-            preparedStatement.setInt(5, productId);
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-
-            idField.setText("");
-            nameField.setText("");
-            quantityField.setText("");
-            priceField.setText("");
-            loadProductsFromDatabase();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        selectedItemTextArea.append("Total Price: $" + String.format("%.2f", totalPrice) + "\n");
+        totalPriceLabel.setText("Total Price: $" + String.format("%.2f", totalPrice));
     }
 
-    private void deleteProduct() {
-        int selectedIndex = productList.getSelectedIndex();
-        if (selectedIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Select a product to delete.");
-            return;
-        }
-
-        try {
-            String selectedProduct = productList.getSelectedValue();
-            int productId = Integer.parseInt(selectedProduct.split(": ")[1].split(",")[0]);
-
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM item WHERE id = ?");
-            preparedStatement.setInt(1, productId);
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-
-            loadProductsFromDatabase();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            CRUDAppWithId app = new CRUDAppWithId();
-            app.setVisible(true);
-        });
-    }
 }
