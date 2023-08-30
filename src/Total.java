@@ -64,7 +64,7 @@ public class Total extends JPanel {
                 String itemName = nameLabel.getText().replace("Name: ", "");
 
                 JLabel priceLabel = (JLabel) components[i + 1];
-                String priceString = priceLabel.getText().replace("Price: $", "");
+                String priceString = priceLabel.getText().replace("Price: RM", "");
                 double productPrice = Double.parseDouble(priceString);
 
                 double itemTotalPrice = selectedQuantity * productPrice;
@@ -73,19 +73,19 @@ public class Total extends JPanel {
                 selectedItemTextArea.append(
                         "Item: " + itemName + "\n" +
                                 "Quantity: " + selectedQuantity + "\n" +
-                                "Price: $" + String.format("%.2f", productPrice) + "\n" +
-                                "Total Price: $" + String.format("%.2f", itemTotalPrice) + "\n\n"
+                                "Price: RM" + String.format("%.2f", productPrice) + "\n" +
+                                "Total Price: RM" + String.format("%.2f", itemTotalPrice) + "\n\n"
                 );
             }
         }
 
-        selectedItemTextArea.append("Total Price: $" + String.format("%.2f", totalPrice) + "\n");
-        totalPriceLabel.setText("Total Price: $" + String.format("%.2f", totalPrice));
+        selectedItemTextArea.append("Total Price: RM" + String.format("%.2f", totalPrice) + "\n");
+        totalPriceLabel.setText("Total Price: RM" + String.format("%.2f", totalPrice));
 
 
         int confirm = JOptionPane.showConfirmDialog(
                 null,
-                "Are you sure you want to purchase?\nTotal Price: $" + String.format("%.2f", totalPrice),
+                "Are you sure you want to purchase?\nTotal Price: RM" + String.format("%.2f", totalPrice),
                 "Confirm Purchase",
                 JOptionPane.YES_NO_OPTION
         );

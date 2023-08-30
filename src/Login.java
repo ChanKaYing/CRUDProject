@@ -111,8 +111,6 @@ public class Login extends JPanel {
             HomePage homePagepanel = new HomePage(cards,card1);
             AdminPage adminPagepanel = new AdminPage(cards, card1);
             Total totalPagepanel = new Total(cards, card1);
-
-
             cards.add(loginPanel, "Login");
             cards.add(registerpanel, "Register");
             cards.add(homePagepanel,"HomePage");

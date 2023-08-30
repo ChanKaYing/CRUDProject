@@ -136,7 +136,7 @@ public class AdminPage extends JPanel {
                 String productName = resultSet.getString("name");
                 int productQuantity = resultSet.getInt("quantity");
                 double productPrice = resultSet.getDouble("price");
-                productModel.addElement("ID: " + productId + " " + productName + " - Quantity: " + productQuantity + ", Price: $" + productPrice);
+                productModel.addElement("ID: " + productId + " " + productName + " - Quantity: " + productQuantity + ", Price: RM" + productPrice);
             }
 
             resultSet.close();

@@ -124,7 +124,7 @@ public class HomePage extends JPanel {
     }
 
     private void createTotalPriceLabel() {
-        totalPriceLabel = new JLabel("Cart                   \n Total Price: $0.00");
+        totalPriceLabel = new JLabel("Cart                   \n Total Price: RM0.00");
 
 
         this.add(totalPriceLabel, BorderLayout.NORTH);
@@ -171,7 +171,7 @@ public class HomePage extends JPanel {
                 double productPrice = resultSet.getDouble("price");
 
                 JLabel nameLabel = new JLabel("Name: " + productName);
-                JLabel priceLabel = new JLabel("Price: $" + String.format("%.2f", productPrice));
+                JLabel priceLabel = new JLabel("Price: RM" + String.format("%.2f", productPrice));
 
                 SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, productQuantity, 1);
                 JSpinner spinner = new JSpinner(spinnerModel);
@@ -195,7 +195,7 @@ public class HomePage extends JPanel {
     private void createItemGroup(String productName,int productQuantity,double productPrice){
 
         JLabel nameLabel = new JLabel("Name: " + productName);
-        JLabel priceLabel = new JLabel("Price: $" + String.format("%.2f", productPrice));
+        JLabel priceLabel = new JLabel("Price: RM" + String.format("%.2f", productPrice));
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, productQuantity, 1);
         JSpinner spinner = new JSpinner(spinnerModel);
@@ -403,14 +403,14 @@ public class HomePage extends JPanel {
                 text="";name="";
             } else if (j%3==1) {
                 text=text+"\n"+CartText.get(j);
-                calc=Double.parseDouble(CartText.get(j).replace("Price: $",""));
+                calc=Double.parseDouble(CartText.get(j).replace("Price: RM",""));
             } else{
                 name=CartText.get(j).replace("Name: ","");
                 text=text+"\n"+CartText.get(j);
             }
         }
         //selectedItemTextArea.setText(text);
-        totalPriceLabel.setText("Total Price: $" + String.format("%.2f", totalPrice));
+        totalPriceLabel.setText("Total Price: RM" + String.format("%.2f", totalPrice));
 
 
 
@@ -432,14 +432,14 @@ public class HomePage extends JPanel {
                 selectedItemTextArea.append(
                         "Item: " + itemName + "\n" +
                                 "Quantity: " + selectedQuantity + "\n" +
-                                "Price: $" + String.format("%.2f", productPrice) + "\n" +
-                                "Total Price: $" + String.format("%.2f", itemTotalPrice) + "\n\n"
+                                "Price: RM" + String.format("%.2f", productPrice) + "\n" +
+                                "Total Price: RM" + String.format("%.2f", itemTotalPrice) + "\n\n"
                 );
             }
         }
 
-        selectedItemTextArea.append("Total Price: $" + String.format("%.2f", totalPrice) + "\n");
-        totalPriceLabel.setText("Total Price: $" + String.format("%.2f", totalPrice));*/
+        selectedItemTextArea.append("Total Price: RM" + String.format("%.2f", totalPrice) + "\n");
+        totalPriceLabel.setText("Total Price: RM" + String.format("%.2f", totalPrice));*/
     }
 
 }
