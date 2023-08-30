@@ -39,8 +39,6 @@ public class Login extends JPanel {
         this.add(this.labelPassword);
         this.add(this.textFieldName); // Change textFieldID to textFieldName
         this.add(this.passwordField1);
-        textFieldName.setText("z");
-        passwordField1.setText("z");
 
         this.buttonLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
