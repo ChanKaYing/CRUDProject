@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d76166cf-0621-440d-be2f-cd1e7ce4f222" name="Changes" comment="4">
-      <change afterPath="$PROJECT_DIR$/Flower.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Receipt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Receipt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AdminPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HomePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Total.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Total.java" afterDir="false" />
-    </list>
+    <list default="true" id="d76166cf-0621-440d-be2f-cd1e7ce4f222" name="Changes" comment="6" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,8 +37,7 @@
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/User/Documents/dumps/Dump20230830",
+    "last_opened_file_path": "C:/Users/User/IdeaProjects/CRUDProject/CRUDProject/Database",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0"
@@ -54,6 +45,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\User\IdeaProjects\CRUDProject\CRUDProject\Database" />
       <recent name="C:\Users\User\IdeaProjects\CRUDProject\CRUDProject" />
     </key>
   </component>
@@ -94,12 +86,28 @@
       <option name="project" value="LOCAL" />
       <updated>1693354036282</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="5">
+      <created>1693363247117</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1693363247117</updated>
+    </task>
+    <task id="LOCAL-00006" summary="6">
+      <created>1693363346121</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1693363346121</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="2" />
     <MESSAGE value="3" />
-    <option name="LAST_COMMIT_MESSAGE" value="3" />
+    <MESSAGE value="5" />
+    <MESSAGE value="6" />
+    <option name="LAST_COMMIT_MESSAGE" value="6" />
   </component>
 </project>
